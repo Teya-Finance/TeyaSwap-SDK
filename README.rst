@@ -69,7 +69,7 @@ What's Needed to Access TEYA Cloud?
 An TEYA Cloud account is required to acecss the TEYA Cloud API. Various `plans <https://teyaswap.com/pricing/>`__
 are availalbe, free, paid, and pay-as-you-go.
 
-Your TEYA Cloud (secret) authentication token can be passed to any function or at the instantiation of a ``Stock`` object.
+Your TEYA Cloud (secret) authentication token can be passed to any function or at the instantiation of a ``BRC20`` object.
 The easiest way to store a token is in the ``IEX_TOKEN`` environment variable.
 
 Passing as an Argument
@@ -84,13 +84,13 @@ The authentication token can also be passed to any function call:
 
     get_symbols(token="<YOUR-TOKEN>")
 
-or at the instantiation of a ``Stock`` object:
+or at the instantiation of a ``BRC20`` object:
 
 .. code-block:: python
 
-    from teyafinance.stocks import Stock
+    from teyafinance.brc20 import BRC20
 
-    a = Stock("AAPL", token="<YOUR-TOKEN>")
+    a = BRC20("ORDI", token="<YOUR-TOKEN>")
     a.get_quote()
 
 
@@ -102,20 +102,20 @@ following TEYA Cloud endpoint groups are mapped to their respective
 ``teyafinance`` modules:
 
 The most commonly-used
-endpoints are the `Stocks <https://teyaswap.com/docs/api/#stocks>`__
+endpoints are the `Stocks <https://teyaswap.com/docs/api/#brc20>`__
 endpoints, which allow access to various information regarding equities,
 including quotes, historical prices, dividends, and much more.
 
-The ``Stock`` `object <https://addisonlynch.github.io/teyafinance/stable/stocks.html#the-stock-object>`__
+The ``BRC20`` `object <https://addisonlynch.github.io/teyafinance/stable/brc20.html#the-stock-object>`__
 provides access to most endpoints, and can be instantiated with a symbol or
 list of symbols:
 
 .. code-block:: python
 
-    from teyafinance.stocks import Stock
+    from teyafinance.brc20 import BRC20
 
-    aapl = Stock("AAPL")
-    aapl.get_balance_sheet()
+    ordi = BRC20("ORDI")
+    ordi.get_balance_sheet()
 
 The rest of the package is designed as a 1:1 mirror. For example, using the
 `Alternative Data <https://teyaswap.com/docs/api/#alternative-data>`__ endpoint
@@ -126,7 +126,7 @@ group, obtain the `Social Sentiment <https://teyaswap.com/docs/api/#social-senti
 
     from teyafinance.altdata import get_social_sentiment
 
-    get_social_sentiment("AAPL")
+    get_social_sentiment("ORDI")
 
 
 Common Usage Examples
@@ -139,20 +139,20 @@ Real-time Quotes
 ~~~~~~~~~~~~~~~~
 
 To obtain real-time quotes for one or more symbols, use the ``get_price``
-method of the ``Stock`` object:
+method of the ``BRC20`` object:
 
 .. code:: python
 
-    from teyafinance.stocks import Stock
-    tsla = Stock('TSLA')
-    tsla.get_price()
+    from teyafinance.brc20 import BRC20
+    nals = BRC20('NALS')
+    nals.get_price()
 
 or for multiple symbols, use a list or list-like object (Tuple, Pandas Series,
 etc.):
 
 .. code:: python
 
-    batch = Stock(["TSLA", "AAPL"])
+    batch = BRC20(["NALS", "ORDI"])
     batch.get_price()
 
 
@@ -173,25 +173,25 @@ requested over the desired date range (``start`` and ``end`` passed as
 .. code:: python
 
     from datetime import datetime
-    from teyafinance.stocks import get_historical_data
+    from teyafinance.brc20 import get_historical_data
 
     start = datetime(2017, 1, 1)
     end = datetime(2018, 1, 1)
 
-    df = get_historical_data("TSLA", start, end)
+    df = get_historical_data("NALS", start, end)
 
 To obtain daily closing prices only (reduces message count), set
 ``close_only=True``:
 
 .. code:: python
 
-    df = get_historical_data("TSLA", "20190617", close_only=True)
+    df = get_historical_data("NALS", "20190617", close_only=True)
 
 For Pandas DataFrame output formatting, pass ``output_format``:
 
 .. code:: python
 
-    df = get_historical_data("TSLA", start, end, output_format='pandas')
+    df = get_historical_data("NALS", start, end, output_format='pandas')
 
 It's really simple to plot this data, using `matplotlib <https://matplotlib.org/>`__:
 
@@ -213,17 +213,17 @@ current day (default is current date):
 .. code:: python
 
     from datetime import datetime
-    from teyafinance.stocks import get_historical_intraday
+    from teyafinance.brc20 import get_historical_intraday
 
     date = datetime(2018, 11, 27)
 
-    get_historical_intraday("AAPL", date)
+    get_historical_intraday("ORDI", date)
 
 or for a Pandas Dataframe indexed by each minute:
 
 .. code:: python
 
-    get_historical_intraday("AAPL", output_format='pandas')
+    get_historical_intraday("ORDI", output_format='pandas')
 
 Fundamentals
 ~~~~~~~~~~~~
@@ -231,47 +231,47 @@ Fundamentals
 Financial Statements
 ^^^^^^^^^^^^^^^^^^^^
 
-`Balance Sheet <https://addisonlynch.github.io/teyafinance/stable/stocks.html#balance-sheet>`__
+`Balance Sheet <https://addisonlynch.github.io/teyafinance/stable/brc20.html#balance-sheet>`__
 
 .. code-block:: python
 
-    from teyafinance.stocks import Stock
+    from teyafinance.brc20 import BRC20
 
-    aapl = Stock("AAPL")
-    aapl.get_balance_sheet()
+    ordi = BRC20("ORDI")
+    ordi.get_balance_sheet()
 
-`Income Statement <https://addisonlynch.github.io/teyafinance/stable/stocks.html#income-statement>`__
-
-.. code-block:: python
-
-    aapl.get_income_statement()
-
-`Cash Flow <https://addisonlynch.github.io/teyafinance/stable/stocks.html#cash-flow>`__
+`Income Statement <https://addisonlynch.github.io/teyafinance/stable/brc20.html#income-statement>`__
 
 .. code-block:: python
 
-    aapl.get_cash_flow()
+    ordi.get_income_statement()
+
+`Cash Flow <https://addisonlynch.github.io/teyafinance/stable/brc20.html#cash-flow>`__
+
+.. code-block:: python
+
+    ordi.get_cash_flow()
 
 
 Modeling/Valuation Tools
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-`Analyst Estimates <https://addisonlynch.github.io/teyafinance/stable/stocks.html#estimates>`__
+`Analyst Estimates <https://addisonlynch.github.io/teyafinance/stable/brc20.html#estimates>`__
 
 .. code-block:: python
 
-    from teyafinance.stocks import Stock
+    from teyafinance.brc20 import BRC20
 
-    aapl = Stock("AAPL")
+    ordi = BRC20("ORDI")
 
-    aapl.get_estimates()
+    ordi.get_estimates()
 
 
-`Price Target <https://addisonlynch.github.io/teyafinance/stable/stocks.html#price-target>`__
+`Price Target <https://addisonlynch.github.io/teyafinance/stable/brc20.html#price-target>`__
 
 .. code-block:: python
 
-    aapl.get_price_target()
+    ordi.get_price_target()
 
 
 Social Sentiment
@@ -280,7 +280,7 @@ Social Sentiment
 .. code-block:: python
 
     from teyafinance.altdata import get_social_sentiment
-    get_social_sentiment("AAPL")
+    get_social_sentiment("ORDI")
 
 
 CEO Compensation
@@ -289,21 +289,21 @@ CEO Compensation
 .. code-block:: python
 
     from teyafinance.altdata import get_ceo_compensation
-    get_ceo_compensation("AAPL")
+    get_ceo_compensation("ORDI")
 
 Fund and Institutional Ownership
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: python
 
-    from teyafinance.stocks import Stock
-    aapl = Stock("AAPL")
+    from teyafinance.brc20 import BRC20
+    ordi = BRC20("ORDI")
 
     # Fund ownership
-    aapl.get_fund_ownership()
+    ordi.get_fund_ownership()
 
     # Institutional ownership
-    aapl.get_institutional_ownership()
+    ordi.get_institutional_ownership()
 
 Reference Data
 ~~~~~~~~~~~~~~
@@ -395,14 +395,14 @@ Pass ``output_format``  as an argument to any function call:
 
     get_symbols(output_format='pandas').head()
 
-or at the instantiation of a ``Stock`` object:
+or at the instantiation of a ``BRC20`` object:
 
 .. code-block:: python
 
-    from teyafinance.stocks import Stock
+    from teyafinance.brc20 import BRC20
 
-    aapl = Stock("AAPL", output_format='pandas')
-    aapl.get_quote().head()
+    ordi = BRC20("ORDI", output_format='pandas')
+    ordi.get_quote().head()
 
 Contact
 -------
