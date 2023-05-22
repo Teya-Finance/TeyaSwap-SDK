@@ -1,0 +1,71 @@
+.. _whatsnew_042:
+
+
+v0.4.2 (June 19, 2019)
+----------------------
+
+This is a minor release from 0.4.1. We recommend that all users update to
+maintain compatibility with IEX Cloud and optimize message weighting in calls.
+
+Highlights:
+
+- Removes support for the legacy Version 1.0 IEX Developer API, which was
+  retired in favor of IEX Cloud in June 2019
+- Optimized retrieval of historical prices with ``get_historical_data`` to
+  allow for close prices only and single day charts to reduce message counts
+- Add support for End of Day options prices
+
+New Endpoints
+~~~~~~~~~~~~~
+
+**Options**
+
+- End of Day Options (``get_eod_options``)
+
+**Data APIs**
+
+- /time-series (``get_time_series``)
+- /data-points (``get_data_points``)
+
+Enhancements
+~~~~~~~~~~~~
+
+- Adds logging for queries, including message count usage and debugging
+  information. Logging level defaults to ``WARNING``, but can be set to other
+  levels through the ``IEX_LOG_LEVEL`` environment variable. The following
+  levels provide various information:
+
+    - ``WARNING`` - errors only
+    - ``INFO`` - message count used
+    - ``DEBUG`` - request information
+
+- Add ``close_only`` keyword argument to ``get_historical_data`` to allow for
+  retrieval of adjusted close only at reduced message cost (through
+  ``chartCloseOnly`` query parameter)
+- Optimize ``get_historical_data`` to use ``chartByDay`` if a single date is
+  passed which reduces message count (thanks shlomikushchi)
+
+Backwards Incompatible Changes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- When ``IEX_API_VERSION`` is set to ``v1``, IEX Cloud will now be used, and
+  as such this has the same behavior as ``iexcloud-v1``
+- The following legacy-only endpoints have been deprecated and will raise an
+  ``ImmediateDeprecationError`` when called:
+
+    - ``iexfinance.stocks.get_crypto_quotes``
+    - ``iexfinance.refdata.get_iex_corporate_actions``
+    - ``iexfinance.refdata.get_iex_dividends``
+    - ``iexfinance.refdata.get_iex_next_day_ex_date``
+    - ``iexfinance.refdata.get_listed_symbol_dir``
+    - ``iexfinance.stocks.Stock.get_effective_spread``
+
+- The ``get_all`` method of ``iexfinance.stocks.Stock`` has been immediately
+  deprecated
+
+
+Bug Fixes
+~~~~~~~~~
+
+- Certain failed requests which erroneously-returened ``IEXAuthorizationError``
+  now return ``IEXQueryError``

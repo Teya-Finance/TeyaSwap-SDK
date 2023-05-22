@@ -1,0 +1,102 @@
+.. _whatsnew_041:
+
+
+v0.4.1 (May 14, 2019)
+---------------------
+
+This is a minor release from 0.4.0. We recommend that all users update to
+maintain compatibility with IEX Cloud.
+
+Highlights:
+
+- Defaults to IEX Cloud for all API calls
+- Adds warnings to all legacy-only endpoints which will be deprecated
+  on June 1, 2019, and warnings when ``IEX_API_VERSION`` is ``v1``
+- Testing support for all legacy Version 1.0 endpoints has ended
+- Adds support for IEX Cloud sandbox environment (GH116_)
+
+.. _GH116: https://github.com/addisonlynch/iexfinance/issues/116
+
+
+New Endpoints
+~~~~~~~~~~~~~
+
+**Stocks**
+
+* /fund-ownership (``get_fund_ownership``)
+* /institutional-ownership (``get_institutional_ownership``)
+* /insider-roster (``get_insider_roster``)
+* /insider-summary (``get_insider_summary``)
+* /insider-transactions (``get_insider_transactions``)
+
+**Alternative Data**
+
+* /ceo-compensation (``iexfinance.altdata.get_ceo_compensation``)
+
+Enhancements
+~~~~~~~~~~~~
+
+- Adds support for the IEX Cloud sandbox environment. Specify  ``iexcloud-sandbox`` as ``IEX_API_VERSION`` for use with test secret token (GH116_)
+- Refactored test suite to reduce code bloat and consolidate output
+  formatting
+
+
+.. _GH116: https://github.com/addisonlynch/iexfinance/issues/116
+
+Backwards Incompatible Changes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+* ``iexcloud-v1`` is now the default ``IEX_API_VERSION``, as ``v1`` support
+  will end on 6/1/2019
+* ``Stock`` :ref:`Field/Additional methods <stocks.additional-methods>` are no
+  longer supported by the v1 Deveoper API. These methods are retained in IEX
+  Cloud
+* All legacy-only endpoints will now warn of impending deprecation on
+  June 1, 2019
+
+    - ``iexfinance.stocks.get_crypto_quotes``
+    - ``iexfinance.refdata.get_iex_corporate_actions``
+    - ``iexfinance.refdata.get_iex_dividends``
+    - ``iexfinance.refdata.get_iex_next_day_ex_date``
+    - ``iexfinance.refdata.get_listed_symbol_dir``
+
+* Deprecations (functions moved or renamed):
+
+    - ``get_market_gainers`` → ``iexfinance.stocks.get_market_gainers``
+    - ``get_market_losers`` → ``iexfinance.stocks.get_market_losers``
+    - ``get_market_most_active`` → ``iexfinance.stocks.get_market_most_active``
+    - ``get_market_iex_volume`` → ``iexfinance.stocks.get_market_iex_volume``
+    - ``get_market_iex_percent`` → ``iexfinance.stocks.get_market_iex_percent``
+    - ``get_symbols`` → ``iexfinance.refdata.get_symbols``
+    - ``get_iex_corporate_actions`` → ``iexfinance.refdata.get_iex_corporate_actions``
+    - ``get_iex_dividends`` → ``iexfinance.refdata.get_iex_dividends``
+    - ``get_iex_next_day_ex_date`` → ``iexfinance.refdata.get_iex_next_day_ex_date``
+    - ``get_listed_symbol_dir`` → ``iexfinance.refdata.get_listed_symbol_dir``
+    - ``get_tops`` → ``iexfinance.iexdata.get_tops``
+    - ``get_last`` → ``iexfinance.iexdata.get_last``
+    - ``get_deep`` → ``iexfinance.iexdata.get_deep``
+    - ``get_deep_book`` → ``iexfinance.iexdata.get_deep_book``
+    - ``get_stats_intraday`` → ``iexfinance.iexdata.get_stats_intraday``
+    - ``get_stats_recent`` → ``iexfinance.iexdata.get_stats_recent``
+    - ``get_stats_records`` → ``iexfinance.iexdata.get_stats_records``
+    - ``get_stats_daily`` → ``iexfinance.iexdata.get_stats_daily``
+    - ``get_stats_summary`` → ``iexfinance.iexdata.get_stats_summary``
+    - ``stocks.get_today_earnings`` → ``stocks.get_earnings_today``
+    - ``stocks.Stock.get_previous`` → ``stocks.Stock.get_previous_day_prices``
+    - ``stocks.Stock.get_relevant`` → ``stocks.Stock.get_relevant_stocks``
+
+
+Bug Fixes
+~~~~~~~~~
+
+- Repair ``DataFrame`` output formatting for a number of ``Stock`` methods (GH119_)
+- Fix project description for PyPi
+
+.. _GH119: https://github.com/addisonlynch/iexfinance/issues/119
+
+
+Testing
+~~~~~~~
+
+- Testing support all legacy Version 1 endpoints has ended. These endpoints will be deprecated in 0.4.2

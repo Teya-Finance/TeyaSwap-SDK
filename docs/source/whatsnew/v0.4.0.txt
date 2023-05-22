@@ -1,0 +1,102 @@
+.. _whatsnew_040:
+
+
+v0.4.0 (February 21, 2019)
+--------------------------
+
+This is a major release from 0.3.5, and we recommend that all users
+update.
+
+
+Highlights
+
+- Adds support for `IEX Cloud <https://iexcloud.io>`__
+
+.. whatsnew_040.new-endpoints:
+
+New Endpoints
+~~~~~~~~~~~~~
+
+**Stock**
+
+* /balance-sheet (``get_balance_sheet``)
+* /cash-flow (``get_cash_flow``)
+* /estimates (``get_estimates``)
+* /historical (``get_historical_prices``) (same as ``get_chart``)
+* /income (``get_income_statement``)
+* /price-target (``get_price_target``)
+
+**Account**
+
+* /account/usage (``iexfinance.account.get_usage``)
+* /account/metadata (``iexfinance.account.get_metadata``)
+* /account/payasyougo (``iexfinance.account.allow_pay_as_you_go``,
+  ``iexfinance.account.disallow_pay_as_you_go``)
+
+**Reference Data**
+
+* /ref-data/symbols (``iexfinance.get_symbols``)
+* /ref-data/iex-symbols (``iexfinance.get_iex_symbols``)
+
+**Alternative Data**
+
+* /crypto/quote (``iexfinance.altdata.get_crypto_quote``)
+* /stock/sentiment (``iexfinance.altdata.get_social_sentiment``)
+
+**API System Metadata**
+
+* /status (``iexfinance.apidata.get_api_status``)
+
+.. whatsnew_040.enhancements:
+
+Enhancements
+~~~~~~~~~~~~
+
+- Adds support for setting persistent output format settings using
+  the environment variable ``IEX_OUTPUT_FORMAT``
+- Select between IEX API versions using the IEX_API_VERSION environment variable
+- The ``StockReader`` base class has been renamed ``Stock`` and the duplicate
+  ``Stock`` function has been removed
+- Loosened testing restrictions on return types to allow for ``int`` or
+  ``float`` to eliminate periodic even number returns and CI failures
+- Improved testing for ``_IEXBase`` base class configuration (request
+  parameters, output formatting)
+- Adds tox for cross-version testing (thank you Jack Moody)
+- Adds official Python 3.7 support and CI build (thank you Jack Moody)
+
+.. whatsnew_040.backwards:
+
+Backwards Incompatible Changes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Deprecated ``iexfinance.Stock`` and ``iexfinance.get_historical_data`` have been removed. These are now available as ``iexfinance.stocks.Stock`` and ``iexfinance.stocks.get_historical_data``
+- ``iexfinance.marketdata`` has been moved to a new module ``iexdata``.
+   - ``get_market_tops``, ``get_market_last``, ``get_market_deep``,
+     ``get_market_book`` have been deprecated and renamed (respectively)
+     ``get_tops``, ``get_last``, ``get_deep``, ``get_deep_book``
+- ``iexfinance.stats`` moved to a new module ``iexdata``.
+    - ``get_stats_intraday``, ``get_stats_recent``, ``get_stats_records``, ``get_stats_daily``, ``get_stats_monthly``
+      have been moved to ``iexdata``. The top level functions ``iexfinance.get_stats_intraday`` etc. have
+      been deprecated
+    - ``get_stats_monthly`` renamed to ``get_stats_summary``
+- The named parameter ``range_`` for ``iexfinance.stocks.Stock.get_dividends``,
+  ``get_splits``, and ``get_chart`` is now the keyword argument ``range``
+- ``iexfinance.stocks.Stock.get_previous`` deprecated and renamed
+  ``get_previous_day_prices``
+- ``iexfinance.stocks.get_todays_earnings`` deprecated and renamed ``get_earnings_today``
+- ``iexfinance.stocks.get_relevant`` deprecated and renamed
+  ``get_relevant_stocks``
+- ``iexfinance.stocks.get_all`` is now available for the Version 1.0 Developer
+  API only.
+
+.. whatsnew_040.bug_fixes:
+
+Bug Fixes
+~~~~~~~~~
+
+- Make pandas indexing consistent for ``get_historical_intraday``, using
+  ``pandas.DatetimeIndex`` instead of ``str`` (GH95_)
+- ``stocks.Stock.get_dividends`` output fomatting returns one symbol only (GH110_)
+
+.. _GH95: https://github.com/addisonlynch/iexfinance/issues/95
+.. _GH110: https://github.com/addisonlynch/iexfinance/issues/110
