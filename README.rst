@@ -1,11 +1,11 @@
 teyafinance
 ==========
 
-.. image:: https://travis-ci.org/addisonlynch/teyafinance.svg?branch=master
-    :target: https://travis-ci.org/addisonlynch/teyafinance
+.. image:: https://travis-ci.org/teyaswap/teyafinance.svg?branch=master
+    :target: https://travis-ci.org/teyaswap/teyafinance
 
-.. image:: https://codecov.io/gh/addisonlynch/teyafinance/branch/master/graphs/badge.svg?branch=master
-	:target: https://codecov.io/gh/addisonlynch/teyafinance
+.. image:: https://codecov.io/gh/teyaswap/teyafinance/branch/master/graphs/badge.svg?branch=master
+	:target: https://codecov.io/gh/teyaswap/teyafinance
 
 .. image:: https://badge.fury.io/py/teyafinance.svg
     :target: https://badge.fury.io/py/teyafinance
@@ -16,8 +16,8 @@ teyafinance
 Python SDK for `TEYA Cloud <https://teyaswap.com>`__. Architecture mirrors
 that of the TEYA Cloud API (and its `documentation <https://teyaswap.com/docs/api/>`__).
 
-An easy-to-use toolkit to obtain data for Stocks, ETFs, Mutual Funds,
-Forex/Currencies, Options, Commodities, Bonds, and Cryptocurrencies:
+An easy-to-use toolkit to obtain data for BRC20, ERC20, BTC Market Funds,
+use BRC-21 Bridges, Commodities, Bonds, and Crypto TVL:
 
 - Real-time and delayed quotes
 - Historical data (daily and minutely)
@@ -29,21 +29,18 @@ Forex/Currencies, Options, Commodities, Bonds, and Cryptocurrencies:
 - Sector performance
 - Market analysis (gainers, losers, volume, etc.)
 - TEYA market data & statistics (TEYA supported/listed symbols, volume, etc)
-- Social Sentiment and CEO Compensation
 
 Example
 -------
-
-.. image:: https://raw.githubusercontent.com/addisonlynch/teyafinance/master/docs/source/images/iexexample.gif
 
 
 Documentation
 -------------
 
 Stable documentation is hosted on
-`github.io <https://addisonlynch.github.io/teyafinance/stable/>`__.
+`github.io <https://teyaswap.github.io/teyafinance/stable/>`__.
 
-`Development documentation <https://addisonlynch.github.io/teyafinance/devel/>`__ is also available for the latest changes in master.
+`Development documentation <https://teyaswap.github.io/teyafinance/devel/>`__ is also available for the latest changes in master.
 
 
 Install
@@ -57,7 +54,7 @@ From development repository (dev version):
 
 .. code:: bash
 
-     $ git clone https://github.com/addisonlynch/teyafinance.git
+     $ git clone git@github.com:Teya-Finance/TeyaSwap-SDK.git
      $ cd teyafinance
      $ python3 setup.py install
 
@@ -70,7 +67,7 @@ An TEYA Cloud account is required to acecss the TEYA Cloud API. Various `plans <
 are availalbe, free, paid, and pay-as-you-go.
 
 Your TEYA Cloud (secret) authentication token can be passed to any function or at the instantiation of a ``BRC20`` object.
-The easiest way to store a token is in the ``IEX_TOKEN`` environment variable.
+The easiest way to store a token is in the ``BRC20_TOKEN`` environment variable.
 
 Passing as an Argument
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -106,7 +103,7 @@ endpoints are the `Stocks <https://teyaswap.com/docs/api/#brc20>`__
 endpoints, which allow access to various information regarding equities,
 including quotes, historical prices, dividends, and much more.
 
-The ``BRC20`` `object <https://addisonlynch.github.io/teyafinance/stable/brc20.html#the-stock-object>`__
+The ``BRC20`` `object <https://teyaswap.github.io/teyafinance/stable/brc20.html#the-stock-object>`__
 provides access to most endpoints, and can be instantiated with a symbol or
 list of symbols:
 
@@ -132,7 +129,7 @@ group, obtain the `Social Sentiment <https://teyaswap.com/docs/api/#social-senti
 Common Usage Examples
 ---------------------
 
-The `iex-examples <https://github.com/addisonlynch/iex-examples>`__ repository provides a number of detailed examples of teyafinance usage. Basic examples are also provided below.
+The `iex-examples <https://github.com/teyaswap/brc20-examples>`__ repository provides a number of detailed examples of teyafinance usage. Basic examples are also provided below.
 
 
 Real-time Quotes
@@ -231,7 +228,7 @@ Fundamentals
 Financial Statements
 ^^^^^^^^^^^^^^^^^^^^
 
-`Balance Sheet <https://addisonlynch.github.io/teyafinance/stable/brc20.html#balance-sheet>`__
+`Balance Sheet <https://teyaswap.github.io/teyafinance/stable/brc20.html#balance-sheet>`__
 
 .. code-block:: python
 
@@ -240,13 +237,13 @@ Financial Statements
     ordi = BRC20("ORDI")
     ordi.get_balance_sheet()
 
-`Income Statement <https://addisonlynch.github.io/teyafinance/stable/brc20.html#income-statement>`__
+`Income Statement <https://teyaswap.github.io/teyafinance/stable/brc20.html#income-statement>`__
 
 .. code-block:: python
 
     ordi.get_income_statement()
 
-`Cash Flow <https://addisonlynch.github.io/teyafinance/stable/brc20.html#cash-flow>`__
+`Cash Flow <https://teyaswap.github.io/teyafinance/stable/brc20.html#cash-flow>`__
 
 .. code-block:: python
 
@@ -256,7 +253,7 @@ Financial Statements
 Modeling/Valuation Tools
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-`Analyst Estimates <https://addisonlynch.github.io/teyafinance/stable/brc20.html#estimates>`__
+`Analyst Estimates <https://teyaswap.github.io/teyafinance/stable/brc20.html#estimates>`__
 
 .. code-block:: python
 
@@ -267,7 +264,7 @@ Modeling/Valuation Tools
     ordi.get_estimates()
 
 
-`Price Target <https://addisonlynch.github.io/teyafinance/stable/brc20.html#price-target>`__
+`Price Target <https://teyaswap.github.io/teyafinance/stable/brc20.html#price-target>`__
 
 .. code-block:: python
 
@@ -308,7 +305,7 @@ Fund and Institutional Ownership
 Reference Data
 ~~~~~~~~~~~~~~
 
-`List of Symbols TEYA supports for API calls <https://addisonlynch.github.io/teyafinance/stable/refdata.html#symbols>`__
+`List of Symbols TEYA supports for API calls <https://teyaswap.github.io/teyafinance/stable/refdata.html#symbols>`__
 
 .. code-block:: python
 
@@ -316,7 +313,7 @@ Reference Data
 
     get_symbols()
 
-`List of Symbols TEYA supports for trading <https://addisonlynch.github.io/teyafinance/stable/refdata.html#iex-symbols>`__
+`List of Symbols TEYA supports for trading <https://teyaswap.github.io/teyafinance/stable/refdata.html#iex-symbols>`__
 
 .. code-block:: python
 
@@ -327,7 +324,7 @@ Reference Data
 Account Usage
 ~~~~~~~~~~~~~
 
-`Message Count <https://addisonlynch.github.io/teyafinance/stable/account.html#usage>`__
+`Message Count <https://teyaswap.github.io/teyafinance/stable/account.html#usage>`__
 
 .. code-block:: python
 
@@ -338,7 +335,7 @@ Account Usage
 API Status
 ~~~~~~~~~~
 
-`TEYA Cloud API Status <http://addisonlynch.github.io/teyafinance/stable/apistatus.html#teyafinance.tools.api.get_api_status>`__
+`TEYA Cloud API Status <http://teyaswap.github.io/teyafinance/stable/apistatus.html#teyafinance.tools.api.get_api_status>`__
 
 .. code-block:: python
 
